@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'save.dart';
+import 'main.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SavePage());
 }
 
-class MyApp extends StatelessWidget {
+class SavePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -58,12 +58,12 @@ class _InstagramAppPageState extends State<InstagramAppPage> {
                   size: 60,
                 ),
                 onPressed: () {
-                    // Pindah ke halaman save.dart tanpa validasi form
+                  // Add back button logic here
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SavePage()),
+                      MaterialPageRoute(builder: (context) => MyApp()),
                     );
-                  },
+                },
               ),
               SizedBox(height: 4), // Jarak kecil antara ikon dan teks
               Text(
@@ -307,13 +307,13 @@ class _InstagramAppPageState extends State<InstagramAppPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffF78320),
+                      backgroundColor: Color(0xFF3E9B08),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                     child: Text(
-                      'Edit',
+                      'Save',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
