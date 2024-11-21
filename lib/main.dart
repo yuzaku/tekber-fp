@@ -108,34 +108,100 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kategori Password'),
+        toolbarHeight: 120,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/logo_efo_appbar.png',
+                  width: 95, // Adjust width
+                  height: 95, // Adjust height
+                ), // Add spacing
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'ENCRYPTED',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xff1C4475),
+                      ),
+                    ),
+                    Text(
+                      'FILE',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xff1C4475),
+                      ),
+                    ),
+                    Text(
+                      'ORGANIZER',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xff1C4475),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPasswordScreen(
+                      onSave: (entry) {
+                        setState(() {
+                          _passwords.add(entry);
+                          _categories.add(entry.category);
+                        });
+                        _savePasswords();
+                      },
+                    ),
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/add.png',
+                width: 75,
+                height: 75,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
+        ),
       ),
       body: ListView(
         children: _categories.map((category) {
-          return ListTile(
-            title: Text(category),
-            onTap: () => _navigateToPasswordList(category),
-          );
+          return Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                color: const Color(0xff1C4475),
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                  child: ListTile(
+                    title: Text(category, style: const TextStyle(color: Colors.white),),
+                    onTap: () => _navigateToPasswordList(category),
+                    leading: Image.asset(
+                      'assets/logo_ig.png',
+                    ),
+                    trailing: Image.asset(
+                      'assets/arrow.png',
+                    ),
+                  ),
+                ),
+              ));
         }).toList(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddPasswordScreen(
-                onSave: (entry) {
-                  setState(() {
-                    _passwords.add(entry);
-                    _categories.add(entry.category);
-                  });
-                  _savePasswords();
-                },
-              ),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }
@@ -161,7 +227,8 @@ class PasswordListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryPasswords = passwords.where((e) => e.category == category).toList();
+    final categoryPasswords =
+        passwords.where((e) => e.category == category).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -172,11 +239,13 @@ class PasswordListScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Kategori Aplikasi :', style: TextStyle(color: Color(0xff1c4475), fontWeight: FontWeight.bold), 
+              'Kategori Aplikasi :',
+              style: TextStyle(
+                  color: Color(0xff1c4475), fontWeight: FontWeight.bold),
             ),
-            Text(
-              category, style: const TextStyle(color: Color(0xff1c4475), fontWeight: FontWeight.bold)
-            ),
+            Text(category,
+                style: const TextStyle(
+                    color: Color(0xff1c4475), fontWeight: FontWeight.bold)),
           ],
         ),
         actions: [
@@ -200,7 +269,10 @@ class PasswordListScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: ListTile(
               title: GestureDetector(
-                child: Text(password.title, style: const TextStyle(color: Colors.white),),
+                child: Text(
+                  password.title,
+                  style: const TextStyle(color: Colors.white),
+                ),
                 onTap: () {
                   showDialog(
                     context: context,
@@ -225,13 +297,17 @@ class PasswordListScreen extends StatelessWidget {
                 },
               ),
               trailing: IconButton(
-                icon: const Icon(Icons.delete, color: Colors.white,),
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
                 onPressed: () async {
                   final confirmed = await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
                       title: const Text('Konfirmasi Hapus'),
-                      content: const Text('Apakah Anda yakin ingin menghapus entri ini?'),
+                      content: const Text(
+                          'Apakah Anda yakin ingin menghapus entri ini?'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context, false),
@@ -258,8 +334,6 @@ class PasswordListScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 // Halaman untuk menambahkan password baru
 class AddPasswordScreen extends StatefulWidget {
@@ -315,7 +389,8 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
             if (_isOther)
               TextField(
                 controller: _categoryController,
-                decoration: const InputDecoration(labelText: 'Kategori Lainnya'),
+                decoration:
+                    const InputDecoration(labelText: 'Kategori Lainnya'),
               ),
             TextField(
               controller: _titleController,
@@ -333,7 +408,9 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                final category = _isOther ? _categoryController.text : _selectedCategory ?? '';
+                final category = _isOther
+                    ? _categoryController.text
+                    : _selectedCategory ?? '';
                 final entry = PasswordEntry(
                   category: category,
                   title: _titleController.text,
