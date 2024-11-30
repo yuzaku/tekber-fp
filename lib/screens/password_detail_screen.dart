@@ -90,7 +90,7 @@ class _PasswordDetailScreenState extends State<PasswordDetailScreen> {
               buildCardInput(_passwordController),
               const SizedBox(height: 24.0),
               Card(
-                color: const Color(0xff1C4475),
+                color: _isEditing ? Colors.green : Colors.orange, // Dynamic color
                 margin: const EdgeInsets.symmetric(vertical: 4),
                 child: TextButton(
                   onPressed: () {
