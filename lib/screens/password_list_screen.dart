@@ -18,6 +18,8 @@ class PasswordListScreen extends StatefulWidget {
 
 class _PasswordListScreenState extends State<PasswordListScreen> {
   late List<PasswordEntry> categoryPasswords;
+  final TextEditingController _searchController = TextEditingController();
+  List<PasswordEntry> filteredPasswords = [];
 
   @override
   void initState() {
@@ -26,6 +28,7 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
     categoryPasswords = widget.passwords
         .where((password) => password.category == widget.category)
         .toList();
+    filteredPasswords = categoryPasswords;
   }
 
   Future<void> _deletePassword(PasswordEntry password) async {
@@ -95,6 +98,19 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
     }
   }
 
+  void _filterPasswords(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredPasswords =
+            categoryPasswords; // Jika query kosong, tampilkan semua
+      } else {
+        filteredPasswords = categoryPasswords.where((entry) {
+          return entry.title.toLowerCase().contains(query.toLowerCase());
+        }).toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,54 +144,79 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: categoryPasswords.length,
-        itemBuilder: (context, index) {
-          final password = categoryPasswords[index];
-          return Card(
-            color: const Color(0xff1c4475),
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: ListTile(
-              title: GestureDetector(
-                child: Text(
-                  password.title,
-                  style: const TextStyle(color: Colors.white),
+      body: Column(
+        children: [
+          // Search Bar
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: "Search by title...",
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                onTap: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PasswordDetailScreen(
-                        title: password.title,
-                        category: password.category,
-                        username: password.username,
-                        password: password.password,
-                        onSave:
-                            (updatedTitle, updatedUsername, updatedPassword) {
-                          _updatePassword(password.title, updatedTitle,
-                              updatedUsername, updatedPassword);
-                        },
-                      ),
-                    ),
-                  ).then((_) async {
-                    // Perbarui daftar password setelah kembali
-                    final updatedPasswords = await PasswordEntry.loadFromStorage();
-                    setState(() {
-                      categoryPasswords = updatedPasswords; // Pastikan variabel passwords adalah List<PasswordEntry>
-                    });
-                  });
-                },
               ),
-              trailing: IconButton(
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-                onPressed: () => _deletePassword(password),
-              ),
+              onChanged:
+                  _filterPasswords, // Panggil fungsi filter saat input berubah
             ),
-          );
-        },
+          ),
+
+          //Password List
+          Expanded(
+              child: ListView.builder(
+            itemCount: filteredPasswords.length,
+            itemBuilder: (context, index) {
+              final password = filteredPasswords[index];
+              return Card(
+                color: const Color(0xff1c4475),
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: ListTile(
+                  title: GestureDetector(
+                    child: Text(
+                      password.title,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PasswordDetailScreen(
+                            title: password.title,
+                            category: password.category,
+                            username: password.username,
+                            password: password.password,
+                            onSave: (updatedTitle, updatedUsername,
+                                updatedPassword) {
+                              _updatePassword(password.title, updatedTitle,
+                                  updatedUsername, updatedPassword);
+                            },
+                          ),
+                        ),
+                      ).then((_) async {
+                        // Perbarui daftar password setelah kembali
+                        final updatedPasswords =
+                            await PasswordEntry.loadFromStorage();
+                        setState(() {
+                          categoryPasswords =
+                              updatedPasswords; // Pastikan variabel passwords adalah List<PasswordEntry>
+                        });
+                      });
+                    },
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => _deletePassword(password),
+                  ),
+                ),
+              );
+            },
+          ))
+        ],
       ),
     );
   }
