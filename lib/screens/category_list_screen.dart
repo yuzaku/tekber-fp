@@ -53,6 +53,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
         toolbarHeight: 120,
         elevation: 0,
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

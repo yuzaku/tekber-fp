@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/category_list_screen.dart';
+import 'screens/welcome_screen.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const CategoryListScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
