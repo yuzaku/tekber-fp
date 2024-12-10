@@ -61,6 +61,55 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Montserrat
+      fonts:
+      - asset: assets/fonts/Montserrat-Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-ThinItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-Black.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-BlackItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-Bold.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-BoldItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-ExtraBold.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-ExtraBoldItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-ExtraLight.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-ExtraLightItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-Italic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-Light.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-LightItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-Medium.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-MediumItalic.ttf
+        weight: 100
+        style: italic
+      - asset: assets/fonts/Montserrat-Regular.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-SemiBold.ttf
+        weight: 100
+      - asset: assets/fonts/Montserrat-SemiBoldItalic.ttf
+        weight: 100
+        style: italic
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
