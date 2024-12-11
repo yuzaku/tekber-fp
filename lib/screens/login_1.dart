@@ -91,6 +91,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero, // Menghapus padding bawaan
+                  minimumSize: Size(0, 0), // Opsional, untuk memastikan ukuran minimum nol
+                  tapTargetSize:
+                      MaterialTapTargetSize.shrinkWrap, // Mengurangi ruang klik
+                ),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                  decoration: const BoxDecoration(
+                    color: Color(0xff82A1D1),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Forgot Passcode ?',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontFamily: 'Montserrat',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
               // Input Form
               Container(
                 padding: const EdgeInsets.all(15),

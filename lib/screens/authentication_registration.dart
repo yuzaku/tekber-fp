@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:passmanager/screens/regist_3.dart';
+import 'package:passmanager/screens/login_1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationRegistration extends StatelessWidget {
@@ -156,7 +156,7 @@ class AuthenticationRegistration extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Regist_3()));
+                                builder: (context) => LoginScreen()));
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xff82A1D1),
