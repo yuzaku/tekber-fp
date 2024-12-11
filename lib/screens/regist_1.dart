@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:passmanager/screens/authentication_registration.dart';
+import 'package:passmanager/screens/regist_2.dart';
 
 class Regist_1 extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
