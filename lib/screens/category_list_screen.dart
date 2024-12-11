@@ -4,7 +4,9 @@ import 'password_add_screen.dart';
 import '../main.dart'; // Import the PasswordEntry class
 
 class CategoryListScreen extends StatefulWidget {
-  const CategoryListScreen({Key? key}) : super(key: key);
+  final String loggedInUsername;
+
+  const CategoryListScreen({Key? key, required this.loggedInUsername}) : super(key: key);
 
   @override
   _CategoryListScreenState createState() => _CategoryListScreenState();
@@ -21,9 +23,13 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
   }
 
   Future<void> _loadPasswords() async {
-    final loadedPasswords = await PasswordEntry.loadFromStorage();
+    final loadedPasswords = await PasswordEntry.loadFromStorage(widget.loggedInUsername);
+    final filteredPasswords = loadedPasswords
+        .where((entry) => entry.ownerUsername == widget.loggedInUsername)
+        .toList();
+
     setState(() {
-      _passwords = loadedPasswords;
+      _passwords = filteredPasswords;
       _categories = _passwords.map((e) => e.category).toSet();
     });
   }
@@ -33,6 +39,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => PasswordListScreen(
+          loggedInUsername: widget.loggedInUsername,
           category: category,
           passwords: _passwords,
         ),
@@ -101,6 +108,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => AddPasswordScreen(
+                      loggedInUsername: widget.loggedInUsername,
                       onSave: (entry) async {
                         await PasswordEntry.addEntry(entry);
                         await _loadPasswords();

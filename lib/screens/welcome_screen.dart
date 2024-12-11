@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passmanager/screens/category_list_screen.dart';
+import 'package:passmanager/screens/login_1.dart';
+import 'package:passmanager/screens/regist_1.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CategoryListScreen()));
+                            builder: (context) => LoginScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff8a9586),
@@ -67,8 +68,11 @@ class WelcomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // TODO: Navigate to Register Screen
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Regist_1()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF8393CA),

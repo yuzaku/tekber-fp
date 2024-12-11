@@ -5,11 +5,13 @@ import '../main.dart'; // Import the PasswordEntry class
 class PasswordListScreen extends StatefulWidget {
   final String category;
   final List<PasswordEntry> passwords;
+  final String loggedInUsername;
 
   const PasswordListScreen({
     Key? key,
     required this.category,
     required this.passwords,
+    required this.loggedInUsername,
   }) : super(key: key);
 
   @override
@@ -56,7 +58,7 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
       await PasswordEntry.deleteEntry(password);
 
       // Sinkronkan ulang daftar entri dari penyimpanan lokal
-      final allPasswords = await PasswordEntry.loadFromStorage();
+      final allPasswords = await PasswordEntry.loadFromStorage(widget.loggedInUsername);
 
       setState(() {
         // Perbarui daftar entri di halaman saat ini
@@ -74,13 +76,14 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
   void _updatePassword(
       String oldTitle, String title, String username, String password) async {
     // Muat daftar password dari penyimpanan
-    final passwords = await PasswordEntry.loadFromStorage();
+    final passwords = await PasswordEntry.loadFromStorage(widget.loggedInUsername);
 
     // Temukan dan perbarui entri
     final index = passwords.indexWhere((entry) =>
         entry.title == oldTitle && entry.category == widget.category);
     if (index != -1) {
       passwords[index] = PasswordEntry(
+        ownerUsername: widget.loggedInUsername,
         category: widget.category,
         title: title,
         username: username,
@@ -197,7 +200,7 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
                       ).then((_) async {
                         // Perbarui daftar password setelah kembali
                         final updatedPasswords =
-                            await PasswordEntry.loadFromStorage();
+                            await PasswordEntry.loadFromStorage(widget.loggedInUsername);
                         setState(() {
                           categoryPasswords =
                               updatedPasswords; // Pastikan variabel passwords adalah List<PasswordEntry>

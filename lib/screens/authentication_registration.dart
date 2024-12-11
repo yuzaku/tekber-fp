@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:passmanager/screens/regist_3.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationRegistration extends StatelessWidget {
-  const AuthenticationRegistration({super.key});
+  final String username;
+  final String password;
+
+  AuthenticationRegistration(
+      {required this.username, required this.password, super.key});
+
+  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController birthPlaceController = TextEditingController();
+  final TextEditingController birthDateController = TextEditingController();
+
+  Future<void> saveUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', username);
+    await prefs.setString('password', password);
+    await prefs.setString('fullname', fullnameController.text);
+    await prefs.setString('birthPlace', birthPlaceController.text);
+    await prefs.setString('birthDate', birthDateController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +47,8 @@ class AuthenticationRegistration extends StatelessWidget {
               const SizedBox(height: 20),
               // Authentication Form Container
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 45),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 45),
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 decoration: const BoxDecoration(
                   color: Color(0xffDF8787),
@@ -73,6 +93,7 @@ class AuthenticationRegistration extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     TextField(
+                      controller: fullnameController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -80,7 +101,8 @@ class AuthenticationRegistration extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -93,6 +115,7 @@ class AuthenticationRegistration extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     TextField(
+                      controller: birthDateController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -100,7 +123,8 @@ class AuthenticationRegistration extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -113,6 +137,7 @@ class AuthenticationRegistration extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     TextField(
+                      controller: birthPlaceController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -120,13 +145,18 @@ class AuthenticationRegistration extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
                       ),
                     ),
                     const SizedBox(height: 20),
                     TextButton(
-                      onPressed: () {
-                        // Tambahkan logika tombol di sini
+                      onPressed: () async {
+                        await saveUserData();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Regist_3()));
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xff82A1D1),

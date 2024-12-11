@@ -3,8 +3,9 @@ import 'package:passmanager/main.dart';
 
 class AddPasswordScreen extends StatefulWidget {
   final void Function(PasswordEntry) onSave;
+  final String loggedInUsername;
 
-  const AddPasswordScreen({Key? key, required this.onSave}) : super(key: key);
+  const AddPasswordScreen({Key? key, required this.onSave, required this.loggedInUsername}) : super(key: key);
 
   @override
   _AddPasswordScreenState createState() => _AddPasswordScreenState();
@@ -107,6 +108,7 @@ class _AddPasswordScreenState extends State<AddPasswordScreen> {
                         ? _categoryController.text
                         : _selectedCategory ?? '';
                     final entry = PasswordEntry(
+                      ownerUsername: widget.loggedInUsername,
                       category: category,
                       title: _titleController.text,
                       username: _usernameController.text,

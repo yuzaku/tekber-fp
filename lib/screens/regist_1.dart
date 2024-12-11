@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:passmanager/screens/authentication_registration.dart';
 
 class Regist_1 extends StatelessWidget {
-  const Regist_1({super.key});
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Regist_1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,8 @@ class Regist_1 extends StatelessWidget {
         scrolledUnderElevation: 0,
         elevation: 0, // Hilangkan bayangan
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black), // Tombol back
+          icon:
+              const Icon(Icons.arrow_back, color: Colors.black), // Tombol back
           onPressed: () {
             Navigator.pop(context); // Kembali ke halaman sebelumnya
           },
@@ -68,6 +73,7 @@ class Regist_1 extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     TextField(
+                      controller: usernameController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -94,6 +100,7 @@ class Regist_1 extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     TextField(
+                      controller: passwordController,
                       obscureText: true, // Sembunyikan teks untuk passcode
                       decoration: InputDecoration(
                         fillColor: Colors.white,
@@ -114,7 +121,16 @@ class Regist_1 extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Tambahkan logika untuk tombol "Continue"
+                          // Navigate to the next screen with username and password
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AuthenticationRegistration(
+                                username: usernameController.text,
+                                password: passwordController.text,
+                              ),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff8A9586),
@@ -126,7 +142,7 @@ class Regist_1 extends StatelessWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Continue',
                               style: TextStyle(
                                 color: Colors.white,
@@ -135,7 +151,7 @@ class Regist_1 extends StatelessWidget {
                                 fontFamily: 'Montserrat',
                               ),
                             ),
-                            const SizedBox(width: 10),
+                            SizedBox(width: 10),
                           ],
                         ),
                       ),
