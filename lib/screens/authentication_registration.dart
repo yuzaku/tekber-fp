@@ -21,8 +21,37 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AuthenticationRegistration extends StatelessWidget {
+class AuthenticationRegistration extends StatefulWidget {
   const AuthenticationRegistration({super.key});
+
+  @override
+  _AuthenticationRegistrationState createState() => _AuthenticationRegistrationState();
+}
+
+class _AuthenticationRegistrationState extends State<AuthenticationRegistration> {
+  final _fullNameController = TextEditingController();
+  final _birthdateController = TextEditingController();
+  final _birthplaceController = TextEditingController();
+
+  String _message = "";
+  Color _messageColor = Colors.transparent;
+  Color _messageBackgroundColor = Colors.transparent;
+
+  void _validateInput() {
+    setState(() {
+      if (_fullNameController.text.isNotEmpty &&
+          _birthdateController.text.isNotEmpty &&
+          _birthplaceController.text.isNotEmpty) {
+        _message = "All fields are valid!";
+        _messageColor = Colors.white;
+        _messageBackgroundColor = Color(0xff3E9B08);
+      } else {
+        _message = "Please fill out all fields.";
+        _messageColor = Colors.white;
+        _messageBackgroundColor = Color(0xffFD4E4E);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +75,7 @@ class AuthenticationRegistration extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             // Authentication Form Container - Sticks to the bottom
             Container(
               padding: const EdgeInsets.only(
@@ -63,7 +92,7 @@ class AuthenticationRegistration extends StatelessWidget {
               child: const Column(
                 children: [
                   Text(
-                    'Authentication',
+                    'AUTHENTICATION',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -76,16 +105,13 @@ class AuthenticationRegistration extends StatelessWidget {
             // Input Form Container
             Container(
               padding: const EdgeInsets.only(
-                top: 15,
-                left: 20,
-                right: 20,
-                bottom: 15),
+                  top: 15, left: 20, right: 20, bottom: 15),
               margin: const EdgeInsets.symmetric(horizontal: 30),
               decoration: BoxDecoration(
                 color: const Color(0xff8A9586),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8)),
               ),
               child: Column(
                 children: [
@@ -103,18 +129,20 @@ class AuthenticationRegistration extends StatelessWidget {
                   const SizedBox(height: 5),
                   // Full Name Input
                   TextField(
+                    controller: _fullNameController,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      border: InputBorder.none, // Remove outline border
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8), // Reduced vertical padding for smaller height
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none, // No border side
+                        borderSide: BorderSide.none,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none, // No border side
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   ),
@@ -133,18 +161,20 @@ class AuthenticationRegistration extends StatelessWidget {
                   const SizedBox(height: 5),
                   // Birthdate Input
                   TextField(
+                    controller: _birthdateController,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      border: InputBorder.none, // Remove outline border
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8), // Reduced vertical padding for smaller height
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none, // No border side
+                        borderSide: BorderSide.none,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none, // No border side
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   ),
@@ -163,48 +193,70 @@ class AuthenticationRegistration extends StatelessWidget {
                   const SizedBox(height: 5),
                   // Birthplace Input
                   TextField(
+                    controller: _birthplaceController,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      border: InputBorder.none, // Remove outline border
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8), // Reduced vertical padding for smaller height
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none, // No border side
+                        borderSide: BorderSide.none,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none, // No border side
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
+                  // Message Session
+                  Card(
+                    color: _messageBackgroundColor, // Optional: Set card color
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0), // Optional: Set border radius
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0), // Add padding inside the card
+                      child: Text(
+                        _message,
+                        style: TextStyle(
+                          color: _messageColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
                   // Confirm Button
                   TextButton(
-                    onPressed: () {},
+                    onPressed: _validateInput,
                     style: TextButton.styleFrom(
-                      backgroundColor: Color(0xff82A1D1),
+                      backgroundColor: const Color(0xff82A1D1),
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8), // Border radius of 8
-                      side: BorderSide(color: Color(0xff82A1D1), width: 2), // Border color and width
-                    ), // Text color
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(
+                            color: Color(0xff82A1D1), width: 2),
+                      ),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           'Confirm',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20, 
+                            fontSize: 20,
                             color: Colors.white,
                           ),
                         ),
                         Image.asset(
-                          'assets/photos/arrow_kategori_b.png', 
-                          width: 50, 
+                          'assets/photos/arrow_kategori_b.png',
+                          width: 50,
                           height: 50,
                         ),
                       ],
