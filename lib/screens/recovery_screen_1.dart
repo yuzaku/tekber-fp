@@ -16,18 +16,18 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
   Future<bool> _confirm(
       String fullname, String birthDate, String birthPlace) async {
     final prefs = await SharedPreferences.getInstance();
-    final savedFullName = prefs.getString('fullname');
-    final savedBirthDate = prefs.getString('birthDate');
-    final savedBirthPlace = prefs.getString('birthPlace');
-    return fullname == savedFullName &&
-        birthPlace == savedBirthPlace &&
-        birthDate == savedBirthDate;
+    final savedFullName = prefs.getString('fullname') ?? '';
+    final savedBirthDate = prefs.getString('birthDate') ?? '';
+    final savedBirthPlace = prefs.getString('birthPlace') ?? '';
+    return fullname == savedFullName.toLowerCase() &&
+        birthPlace == savedBirthPlace.toLowerCase() &&
+        birthDate == savedBirthDate.toLowerCase();
   }
 
   void _onConfirmPressed() async {
-    final fullname = fullnameController.text.trim();
-    final birthDate = birthDateController.text.trim();
-    final birthPlace = birthPlaceController.text.trim();
+    final fullname = fullnameController.text.trim().toLowerCase();
+    final birthDate = birthDateController.text.trim().toLowerCase();
+    final birthPlace = birthPlaceController.text.trim().toLowerCase();
 
     if (await _confirm(fullname, birthDate, birthPlace)) {
       Navigator.pushReplacement(
