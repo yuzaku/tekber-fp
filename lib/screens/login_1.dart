@@ -80,7 +80,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 300,
                 ),
               ),
-              const SizedBox(height: 20),
               const Text(
                 'Login',
                 style: TextStyle(
@@ -146,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Username',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
@@ -172,7 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Passcode',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),

@@ -44,14 +44,13 @@ class AuthenticationRegistration extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
               // Authentication Form Container
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 45),
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 decoration: const BoxDecoration(
-                  color: Color(0xffDF8787),
+                  color: Color(0xff8A9586),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     topRight: Radius.circular(8),
@@ -62,7 +61,7 @@ class AuthenticationRegistration extends StatelessWidget {
                     Text(
                       'Authentication',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -74,12 +73,9 @@ class AuthenticationRegistration extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(15),
                 margin: const EdgeInsets.symmetric(horizontal: 30),
-                decoration: const BoxDecoration(
-                  color: Color(0xff8A9586),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
+                decoration: BoxDecoration(
+                  color: const Color(0xff82A1D1),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +95,6 @@ class AuthenticationRegistration extends StatelessWidget {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
@@ -121,7 +116,6 @@ class AuthenticationRegistration extends StatelessWidget {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
@@ -143,7 +137,6 @@ class AuthenticationRegistration extends StatelessWidget {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
@@ -159,7 +152,7 @@ class AuthenticationRegistration extends StatelessWidget {
                                 builder: (context) => LoginScreen()));
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor: const Color(0xff82A1D1),
+                        backgroundColor: const Color(0xff8A9586),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -179,10 +172,11 @@ class AuthenticationRegistration extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 20)
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20)
             ],
           ),
         ),

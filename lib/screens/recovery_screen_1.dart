@@ -79,7 +79,6 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   height: 300,
                 ),
               ),
-              const SizedBox(height: 20),
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
@@ -118,7 +117,6 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                         'Enter Your Fullname',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
@@ -144,7 +142,6 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                         'Enter Your Birth Date',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
@@ -170,7 +167,6 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                         'Enter Your Birth Place',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),

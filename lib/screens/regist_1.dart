@@ -30,14 +30,18 @@ class Regist_1 extends StatelessWidget {
             children: [
               const SizedBox(height: 20), // Beri jarak dari atas
               // Logo Section
-              Center(
-                child: Image.asset(
-                  'assets/logo_nama.png',
-                  width: 200, // Disesuaikan untuk menjaga proporsi
-                  height: 200,
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/logo_nama.png',
+                      width: 300,
+                      height: 300,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
               // Judul
               const Text(
                 'Register',
@@ -66,12 +70,11 @@ class Regist_1 extends StatelessWidget {
                       'Enter Username',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
                         color: Colors.white,
                         fontFamily: 'Montserrat',
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 5),
                     TextField(
                       controller: usernameController,
                       decoration: InputDecoration(
@@ -79,26 +82,24 @@ class Regist_1 extends StatelessWidget {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 14,
+                          horizontal: 10,
+                          vertical: 8,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     // Password Input
                     const Text(
                       'Enter Passcode',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontWeight: FontWeight.bold,                        
                         color: Colors.white,
                         fontFamily: 'Montserrat',
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 5),
                     TextField(
                       controller: passwordController,
                       obscureText: true, // Sembunyikan teks untuk passcode
@@ -107,15 +108,14 @@ class Regist_1 extends StatelessWidget {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 14,
+                          horizontal: 10,
+                          vertical: 8,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
                     // Continue Button
                     SizedBox(
                       width: double.infinity,
@@ -132,9 +132,10 @@ class Regist_1 extends StatelessWidget {
                             ),
                           );
                         },
-                        style: ElevatedButton.styleFrom(
+                        style: TextButton.styleFrom(
+                          elevation: 0,
                           backgroundColor: const Color(0xff8A9586),
-                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -146,7 +147,7 @@ class Regist_1 extends StatelessWidget {
                               'Continue',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Montserrat',
                               ),
@@ -162,7 +163,6 @@ class Regist_1 extends StatelessWidget {
                       child: Text(
                         '“Organize smarter, secure better—\nEFO has you covered.”',
                         style: TextStyle(
-                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
                           color: Colors.white,

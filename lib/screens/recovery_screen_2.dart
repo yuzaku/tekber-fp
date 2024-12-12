@@ -102,7 +102,6 @@ class _RecoveryScreenState2 extends State<RecoveryScreen2> {
                   height: 300,
                 ),
               ),
-              const SizedBox(height: 20),
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
@@ -141,7 +140,6 @@ class _RecoveryScreenState2 extends State<RecoveryScreen2> {
                         'Enter Your New Username',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
@@ -167,7 +165,6 @@ class _RecoveryScreenState2 extends State<RecoveryScreen2> {
                         'Enter Your New Password',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
@@ -194,7 +191,6 @@ class _RecoveryScreenState2 extends State<RecoveryScreen2> {
                         'Confirm Your New Password',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
                           color: Colors.white,
                           fontFamily: 'Montserrat',
                         ),
