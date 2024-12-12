@@ -47,11 +47,6 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
     );
   }
 
-  Future<void> _deletePassword(PasswordEntry entry) async {
-    await PasswordEntry.deleteEntry(entry);
-    await _loadPasswords();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

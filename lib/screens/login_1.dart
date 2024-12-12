@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passmanager/screens/recovery_screen_1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'category_list_screen.dart';
 
@@ -93,8 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                },
+                          // Navigate to the next screen with username and password
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RecoveryScreen(),
+                            ),
+                          );
+                        },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero, // Menghapus padding bawaan
                   minimumSize: Size(0, 0), // Opsional, untuk memastikan ukuran minimum nol
