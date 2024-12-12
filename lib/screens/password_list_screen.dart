@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'password_detail_screen.dart';
 import '../main.dart'; // Import the PasswordEntry class
 
+// ignore: must_be_immutable
 class PasswordListScreen extends StatefulWidget {
   final String category;
-  final List<PasswordEntry> passwords;
+  List<PasswordEntry> passwords;
   final String loggedInUsername;
 
-  const PasswordListScreen({
+  PasswordListScreen({
     Key? key,
     required this.category,
     required this.passwords,
@@ -75,14 +76,13 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
 
   void _updatePassword(
       String oldTitle, String title, String username, String password) async {
-    // Muat daftar password dari penyimpanan
-    final passwords = await PasswordEntry.loadFromStorage(widget.loggedInUsername);
-
-    // Temukan dan perbarui entri
-    final index = passwords.indexWhere((entry) =>
+    // Temukan indeks entri yang akan diupdate di widget.passwords
+    final index = widget.passwords.indexWhere((entry) => 
         entry.title == oldTitle && entry.category == widget.category);
+    
     if (index != -1) {
-      passwords[index] = PasswordEntry(
+      // Buat entri password baru
+      final updatedEntry = PasswordEntry(
         ownerUsername: widget.loggedInUsername,
         category: widget.category,
         title: title,
@@ -90,13 +90,21 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
         password: password,
       );
 
-      // Simpan kembali data ke penyimpanan
-      await PasswordEntry.saveToStorage(passwords);
+      // Update di penyimpanan lokal
+      await PasswordEntry.saveToStorage(widget.passwords);
 
-      // Perbarui tampilan
+      // Update di state
       setState(() {
-        widget.passwords.clear();
-        widget.passwords.addAll(passwords);
+        // Update di widget.passwords
+        widget.passwords[index] = updatedEntry;
+
+        // Perbarui categoryPasswords
+        categoryPasswords = widget.passwords
+            .where((password) => password.category == widget.category)
+            .toList();
+
+        // Perbarui filteredPasswords
+        _filterPasswords(_searchController.text);
       });
     }
   }
@@ -119,6 +127,7 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         iconTheme: const IconThemeData(
           color: Color(0xff1c4475),
         ),
