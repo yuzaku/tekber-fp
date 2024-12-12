@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:passmanager/screens/recovery_screen_2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,6 +46,37 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Invalid answer, please try again!')),
       );
+    }
+  }
+
+  // Tambahkan variabel untuk menyimpan tanggal
+  DateTime? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary:
+                  Color(0xff8A9586), // Warna utama sesuaikan dengan desain Anda
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        // Format tanggal sesuai kebutuhan Anda
+        birthDateController.text = DateFormat('dd-MM-yyyy').format(picked);
+      });
     }
   }
 
@@ -158,7 +190,13 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
+                        suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_today,
+                                color: Color(0xff8A9586)),
+                            onPressed: () => _selectDate(context)),
                       ),
+                      readOnly: true,
+                      onTap: () => _selectDate(context),
                     ),
                     const SizedBox(height: 10),
                     const Align(

@@ -1,22 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:passmanager/screens/login_1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthenticationRegistration extends StatelessWidget {
+class AuthenticationRegistration extends StatefulWidget {
   final String username;
   final String password;
 
-  AuthenticationRegistration(
-      {required this.username, required this.password, super.key});
+  const AuthenticationRegistration(
+      {required this.username, required this.password, Key? key})
+      : super(key: key);
+  _AuthenticationRegistrationState createState() =>
+      _AuthenticationRegistrationState();
+}
 
+class _AuthenticationRegistrationState
+    extends State<AuthenticationRegistration> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController birthPlaceController = TextEditingController();
   final TextEditingController birthDateController = TextEditingController();
 
+  // Tambahkan variabel untuk menyimpan tanggal
+  DateTime? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary:
+                  Color(0xff8A9586), // Warna utama sesuaikan dengan desain Anda
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        // Format tanggal sesuai kebutuhan Anda
+        birthDateController.text = DateFormat('dd-MM-yyyy').format(picked);
+      });
+    }
+  }
+
   Future<void> saveUserData() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', username);
-    await prefs.setString('password', password);
+    await prefs.setString('username', widget.username);
+    await prefs.setString('password', widget.password);
     await prefs.setString('fullname', fullnameController.text);
     await prefs.setString('birthPlace', birthPlaceController.text);
     await prefs.setString('birthDate', birthDateController.text);
@@ -119,7 +157,13 @@ class AuthenticationRegistration extends StatelessWidget {
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
+                        suffixIcon: IconButton(
+                            icon: const Icon(Icons.calendar_today,
+                                color: Color(0xff8A9586)),
+                            onPressed: () => _selectDate(context)),
                       ),
+                      readOnly: true,
+                      onTap: () => _selectDate(context),
                     ),
                     const SizedBox(height: 10),
                     const Text(
