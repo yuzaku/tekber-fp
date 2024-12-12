@@ -199,6 +199,11 @@ class _AuthenticationRegistrationState
                           );
                         } else {
                           await saveUserData();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(seconds: 2),
+                                content: Text('Account Succesfully Created')),
+                          );
                           Navigator.push(
                               context,
                               MaterialPageRoute(
