@@ -212,7 +212,18 @@ class _RecoveryScreenState2 extends State<RecoveryScreen2> {
                     ),
                     const SizedBox(height: 20),
                     TextButton(
-                      onPressed: _onConfirmPressed,
+                      onPressed: () async {
+                        if (usernameController.text == '' ||
+                            newPasswordController.text == '' ||
+                            confirmPasswordController.text == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(seconds: 2),
+                                content: Text('Field Must be Filled!')),
+                          );
+                        } else {_onConfirmPressed();
+                        }
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xff82A1D1),
                         foregroundColor: Colors.white,
