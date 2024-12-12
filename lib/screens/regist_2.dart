@@ -189,11 +189,21 @@ class _AuthenticationRegistrationState
                     const SizedBox(height: 20),
                     TextButton(
                       onPressed: () async {
-                        await saveUserData();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                        if (fullnameController.text == '' ||
+                            birthDateController.text == '' ||
+                            birthPlaceController.text == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(seconds: 2),
+                                content: Text('Field Must be Filled!')),
+                          );
+                        } else {
+                          await saveUserData();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        }
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xff8A9586),

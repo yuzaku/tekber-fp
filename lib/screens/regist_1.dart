@@ -94,7 +94,7 @@ class Regist_1 extends StatelessWidget {
                     const Text(
                       'Enter Passcode',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,                        
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontFamily: 'Montserrat',
                       ),
@@ -121,8 +121,15 @@ class Regist_1 extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Navigate to the next screen with username and password
-                          Navigator.push(
+                          if (usernameController.text == '' ||
+                              passwordController.text == '') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                duration: Duration(seconds: 2),
+                                content: Text('Field Must be Filled!')),
+                            );
+                          }
+                          else{Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => AuthenticationRegistration(
@@ -130,7 +137,9 @@ class Regist_1 extends StatelessWidget {
                                 password: passwordController.text,
                               ),
                             ),
-                          );
+                          );}
+                          // Navigate to the next screen with username and password
+                          
                         },
                         style: TextButton.styleFrom(
                           elevation: 0,
