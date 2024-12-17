@@ -70,6 +70,12 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
         // Perbarui daftar entri di halaman utama
         widget.passwords.clear();
         widget.passwords.addAll(allPasswords);
+
+        // Perbarui filteredPasswords
+        filteredPasswords = categoryPasswords;
+
+        // Reset search controller
+        _searchController.clear();
       });
     }
   }
