@@ -122,6 +122,26 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
     });
   }
 
+  String _getCategoryIcon(String category) {
+  // Mapping sederhana kategori ke logo
+  switch (category.toLowerCase()) {
+    case 'instagram':
+      return 'assets/logo_ig.png';
+    case 'x':
+      return 'assets/logo_x.png';
+    case 'discord':
+      return 'assets/logo_discord.png';
+    case 'gmail':
+      return 'assets/logo_gmail.png';
+    case 'github':
+      return 'assets/logo_github.png';
+    case 'linkedin':
+      return 'assets/logo_linkedin.png';
+    default:
+      return 'assets/logo_default.png'; // Icon default jika kategori tidak dikenali
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,7 +168,7 @@ class _PasswordListScreenState extends State<PasswordListScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: Image.asset(
-              'assets/logo_ig.png',
+              _getCategoryIcon(widget.category),
               height: 60,
               width: 60,
               fit: BoxFit.contain,

@@ -50,6 +50,27 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
     );
   }
 
+  // Tambahkan metode untuk mendapatkan logo berdasarkan kategori
+String _getCategoryIcon(String category) {
+  // Mapping sederhana kategori ke logo
+  switch (category.toLowerCase()) {
+    case 'instagram':
+      return 'assets/logo_ig.png';
+    case 'x':
+      return 'assets/logo_x.png';
+    case 'discord':
+      return 'assets/logo_discord.png';
+    case 'gmail':
+      return 'assets/logo_gmail.png';
+    case 'github':
+      return 'assets/logo_github.png';
+    case 'linkedin':
+      return 'assets/logo_linkedin.png';
+    default:
+      return 'assets/logo_default.png'; // Icon default jika kategori tidak dikenali
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -182,7 +203,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
                       ),
                       onTap: () => _navigateToPasswordList(category),
                       leading: Image.asset(
-                        'assets/logo_ig.png',
+                        _getCategoryIcon(category),
                       ),
                       trailing: Image.asset(
                         'assets/arrow.png',
